@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <time.h>
 int M[10][10], C[10][10], D[10][10];
-
+int r = 5;
 void insertMines(int arr[][10]){
     int i, j;
     for(i = 0; i <10; i++){
         for(j = 0; j <10; j ++){
-            int a = randem();
-            arr[i][j] = (j + i + a)%7 == 0 ? 1 : 0;
+			for(int x = 0; x < 10; x ++){
+			r = rand();
+			}
+            arr[i][j] = r%100 > 90 ? 1 : 0;
         }
     }
 }
@@ -160,6 +162,7 @@ void printHr(){
 }
 
 void printMap(){
+	system("cls");
 	int i, j;
 	printf("   0   1   2   3   4   5   6   7   8   9\n");
 	for(i=0; i < 10; i ++){
@@ -168,8 +171,16 @@ void printMap(){
 		j = 0;
 		printf("%d", i);
 		while(j<10){
-			if(D[i][j]==1){
-				printf("| %d ", C[i][j]);
+			if(D[i][j]==1)
+			{
+				if(C[i][j]==0)
+				{
+					printf("| . ");
+				}
+				else
+				{
+					printf("| %d ", C[i][j]);
+				}
 			}
 			else{
 				printf("|   ");
@@ -187,15 +198,17 @@ void printMap(){
 	}
 }
 
-int randem(void){
+int randem(){
     int r;
     srand((int)time(0));
-    r = rand();
+    for(int i = 0; i < 10; i ++){
+		r = rand();
+	}
     return (int)r;
 }
 
 void startGame(){
-	system("clear");
+	system("cls");
 	int i, j;
 	printMap();
 	printf("\nMời bạn chọn ô để mở:");
@@ -208,18 +221,19 @@ void startGame(){
 	openCell(i, j);
 }
 int main(){
+	srand((int)time(0));
 	int i, j, check = 1, c, cd;
 	startGame();
 	c = count();
 	while(check){
-		system("clear");
+		//system("cls");
 		printMap();
 		printf("\nMời bạn chọn ô để mở (%d Quả mìn):", c);
 		scanf("%d %d", &i, &j);
 		openCell(i, j);
 		cd = countUnDisplay();
 		if(M[i][j] == 1){
-			system("clear");
+			system("cls");
 			printf("Bùm! Bạn đã thua. Muốn chơi lại hem?\n 1. Có\t0. Không\n");
 			scanf("%d", &check);
 			switch(check){
@@ -231,7 +245,7 @@ int main(){
 			}
 		}
 		else if(c == cd){
-			system("clear");
+			system("cls");
 			printf("Á à, bạn đã thắng ròi. Muốn chơi lại hem?\n 1. Có\t0. Không\n");
 			scanf("%d", &check);
 			switch(check){
