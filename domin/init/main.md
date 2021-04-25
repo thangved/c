@@ -15,6 +15,7 @@ int T[M][N];
 |2|0|0|0|0|0|
 |3|0|-1|0|0|0|
 |4|0|0|0|0|0|
+
 Tất cả các ô đều có trạng thái 0 (chưa mở).
 
 Khuôn dạng (prototype)
